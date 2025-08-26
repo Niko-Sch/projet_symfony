@@ -1,0 +1,23 @@
+Lancer le server :
+symfony server
+
+Créer une entity ou un form : 
+php bin/console make:entity
+php bin/console make:form
+
+Pour hasher un password : 
+php bin/console security:hash-password
+
+Pour inserer un user en BDD via bash !! :
+symfony console doctrine:query:sql "INSERT INTO user (email, roles, password) VALUES ('...')"
+
+Pour migrer les données vers la BDD : 
+php bin/console make:migration
+puis
+php bin/console doctrine:migrations:migrate
+
+Envoyer sur GIT :
+git add .
+git commit - m "message de cmmit"
+git push origin main
+

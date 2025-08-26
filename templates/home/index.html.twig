@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+{% set last_username = last_username|default('') %}
+{% set login_error = login_error|default(null) %}
+
+{# Arrive sur la page de co, user non co #}
+{% if not app.user %}
+    <div class="form-container">
+    <h1>Connexion</h1>
+    {# --- Formulaire connexion --- #}
+    <form method="post" action="{{ path('app_login') }}">
+        <div class="mb-3">
+            <label for="inputEmail" class="mb-3">Email</label>
+            <input type="email" name="email" id="inputEmail" class="form-control" required autofocus>
+        </div>
+
+        <div class="mb-3">
+            <label for="inputPassword" class="mb-3">Mot de passe</label>
+            <input type="password" name="password" id="inputPassword" class="form-control" required>
+        </div>
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+        {% if login_error %}
+            <div class="alert alert-danger">
+                {{ login_error.messageKey|trans(login_error.messageData, 'security') }}
+            </div>
+        {% endif %}
+        
+        <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary w-50">Connexion</button>
+        </div>
+    </form>
+    </div>
+{% endif %}
+
+{# Le user se co #}
+{% if app.user and ticketForm is defined %}
+    <div class="form-container">
+    {# --- Formulaire ticket --- #}
+        <h1>Ajouter un ticket</h1>
+
+        {{ form_start(ticketForm, {'attr': {'class': 'needs-validation'}}) }}
+
+        <div class="row">
+            <div class="col-12 mb-3">
+                {{ form_label(ticketForm.tick_auteur, 'Auteur') }}
+                {{ form_widget(ticketForm.tick_auteur, {'attr': {'class': 'form-control w-100 rounded'}}) }}
+                {{ form_errors(ticketForm.tick_auteur) }}
+            </div>
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(ticketForm.tick_date_ouv, 'Date d\'ouverture') }}
+            {{ form_widget(ticketForm.tick_date_ouv, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(ticketForm.tick_date_ouv) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(ticketForm.tick_description, 'Description') }}
+            {{ form_widget(ticketForm.tick_description, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(ticketForm.tick_description) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(ticketForm.tick_categorie, 'Catégorie') }}
+            {{ form_widget(ticketForm.tick_categorie, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(ticketForm.tick_categorie) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(ticketForm.tick_status, 'Statut') }}
+            {{ form_widget(ticketForm.tick_status, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(ticketForm.tick_status) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(ticketForm.tick_responsable, 'Responsable') }}
+            {{ form_widget(ticketForm.tick_responsable, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(ticketForm.tick_responsable) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(ticketForm.tick_date_clo, 'Date de clôture') }}
+            {{ form_widget(ticketForm.tick_date_clo, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(ticketForm.tick_date_clo) }}
+        </div>
+
+        <div class="d-grid">
+            <button type="submit" class="btn btn-primary btn-block">Envoyer</button>
+        </div>
+    </div>
+{{ form_end(ticketForm) }}
+
+<form action="{{ path('app_logout') }}" method="post" class="mb-2">
+    <div class="d-flex justify-content-center">
+    <button type="submit" class="btn btn-danger w-25">Déconnexion</button>
+    </div>
+</form>
+{% endif %}
+
+{% endblock %}
