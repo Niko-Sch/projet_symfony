@@ -3,6 +3,7 @@ namespace App\Form;
 
 use App\Entity\Accueil;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -21,8 +22,9 @@ class AccueilType extends AbstractType
             ->add('tick_date_ouv', DateType::class, [
                 'label' => 'Date d\'ouverture',
                 'widget' => 'single_text',
+                'data' => new \DateTime(),
             ])
-            ->add('tick_description', TextType::class, [
+            ->add('tick_description', TextareaType::class, [
                 'label' => 'Description',
                 'required' => true,
             ])

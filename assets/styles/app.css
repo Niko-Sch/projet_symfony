@@ -1,3 +1,7 @@
 body {
-    background-color: rgb(5, 176, 244);
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #015db9, #002f5a); /* Dégradé bleu foncé */
+  border-radius: 10px; /* Bordures arrondies pour le verre */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Ombre pour un effet plus profond */
+  opacity: 0.9; /* Légère transparence pour simuler le verre */
 }

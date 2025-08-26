@@ -2,14 +2,15 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
 use Symfony\Component\Routing\Annotation\Route;
+
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 use App\Form\AccueilType;
-use App\Form\ConnexionType;
 use App\Entity\Accueil;
 
 class AccueilController extends AbstractController

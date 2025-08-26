@@ -19,5 +19,8 @@ php bin/console doctrine:migrations:migrate
 Envoyer sur GIT :
 git add .
 git commit - m "message de cmmit"
-git push origin main
+git push origin main ou git push origin staging
+
+Pour pousser staging sur main si OK :
+git push origin main:staging
 
