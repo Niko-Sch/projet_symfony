@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }} 
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+{% endblock %}
+{% block body_class %}page-admin{% endblock %}
+
+{% block javascripts %}{% endblock %}
+
+{% block title %}Menu Administrateur{% endblock %}
+
+{% block body %}
+<link rel="stylesheet" href="{{ asset('css/bootstrap-table.min.css') }}">
+
+  <main class="page-admin">
+    <h1 class="py-3">{{ pageTitle }}</h1>
+    
+    <form action="{{ path('app_logout') }}" method="post" class="mb-2">
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-danger w-25">Déconnexion</button>
+        </div>
+    </form>
+
+    <table id="table" class="table table-bordered" data-toggle="table" data-filter-control="true"
+    data-single-select="true"
+  data-click-to-select="true">
+    <thead>
+        <tr>
+        <th data-field="ticket" data-filter-control="input" scope="col">N° de ticket</th>
+        <th data-field="auteur" data-filter-control="input" scope="col">Auteur</th>
+        <th data-field="date" data-filter-control="input" scope="col">Date d'ouverture</th>
+        <th data-field="categorie" data-filter-control="select" scope="col">Catégorie</th>
+        <th data-field="status" data-filter-control="select" scope="col">Status</th>
+        <th data-field="responsable" data-filter-control="input" scope="col">Responsable</th>
+        </tr>
+    </thead>
+        <tbody>
+            {% for ticket in tickets %}
+                <tr>
+                <td>
+                <a href="{{ path('ticket_edit', { id: ticket.id }) }}" data-turbo-frame="ticket-panel">
+                    {{ ticket.id }}
+                </a>
+                </td>
+                <td>{{ ticket.tickAuteur }}</td>
+                <td>{{ ticket.tickDateOuv|date('d/m/Y') }}</td>
+                <td>{{ ticket.tickCategorie }}</td>
+                <td>{{ ticket.tickStatus }}</td>
+                <td>{{ ticket.tickResponsable }}</td> 
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+<div class="pagination-container">
+  {{ knp_pagination_render(tickets, '@KnpPaginator/Pagination/bootstrap_v5_pagination.html.twig') }}
+</div>
+
+<turbo-frame id="ticket-panel"></turbo-frame>
+
+
+<script src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.22.1/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+
+</main>
+{% endblock %}

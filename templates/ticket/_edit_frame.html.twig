@@ -1,0 +1,48 @@
+<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/editTicket.css') }}">
+{% endblock %}
+
+{{ form_start(form, { attr: { class: 'needs-validation', novalidate: true } }) }}
+  <div class="form-container">
+        <h1>Modification du ticket {{ ticket.id }}</h1>
+
+        {{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
+
+        {{ form_row(form.tick_auteur, { 
+            'attr': { class: 'form-control', readonly: true }
+        }) }}
+
+        {{ form_row(form.tick_date_ouv, {
+            'attr': {'class': 'form-control', 'readonly': true}
+        }) }}
+
+        {{ form_row(form.tick_description, {
+            'attr': {'class': 'form-control'}
+        }) }}
+
+        {{ form_row(form.tick_categorie, {
+            'attr': {'class': 'form-control'}
+        }) }}
+
+        {{ form_row(form.tick_status, {
+            'attr': {'class': 'form-control'},
+        }) }}
+
+        {{ form_row(form.tick_responsable, {
+            'attr': {'class': 'form-control'}
+        }) }}
+
+        {{ form_row(form.tick_date_clo, {
+            'attr': {'class': 'form-control'}
+        }) }}
+
+        <div class="d-flex gap-2 justify-content-center">
+        <button type="submit" class="btn btn-primary">Envoyer</button>
+        <a href="{{ path('app_admin') }}" class="btn btn-danger" data-turbo-frame="_top">Annuler</a>
+        </div>
+
+
+
+{{ form_end(form) }}

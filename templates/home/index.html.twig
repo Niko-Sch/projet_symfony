@@ -49,8 +49,12 @@
 {% endif %}
 
 {# Le user se co #}
-{% if app.user and 'ROLE_USER' in app.user.roles and ticketForm is defined %}
+{% if is_granted('ROLE_ADMIN') %}
+    <meta http-equiv="refresh" content="0; url={{ path('app_admin') }}">
+{% elseif is_granted('ROLE_PERSONNEL') %}
+    <meta http-equiv="refresh" content="0; url={{ path('app_personnel') }}">
 
+{% elseif app.user and 'ROLE_USER' in app.user.roles and ticketForm is defined %}
     <div class="form-container">
         <h1>Créer un ticket</h1>
 
@@ -97,6 +101,7 @@
             <button type="submit" class="btn btn-danger w-25">Déconnexion</button>
         </div>
     </form>
+
 {% endif %}
 
 {% endblock %}

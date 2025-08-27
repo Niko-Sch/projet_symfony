@@ -23,4 +23,6 @@ security:
                 target: app_login 
 
     access_control:
-        - { path: ^/accueil, roles: PUBLIC_ACCESS } # tout le monde peut afficher la page
+        - { path: ^/accueil, roles: PUBLIC_ACCESS } 
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/personnel, roles: ROLE_PERSONNEL }

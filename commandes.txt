@@ -1,6 +1,9 @@
 Lancer le server :
 symfony server
 
+Effacrer le cache :
+php bin/console cache:clear
+
 Créer une entity ou un form : 
 php bin/console make:entity
 php bin/console make:form
