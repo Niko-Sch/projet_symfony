@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\AccueilRepository;
+use App\Repository\TicketRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: AccueilRepository::class)]
-class Accueil
+#[ORM\Entity(repositoryClass: TicketRepository::class)]
+class Ticket
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

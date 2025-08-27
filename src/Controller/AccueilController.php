@@ -10,16 +10,16 @@ use Symfony\Component\Routing\Annotation\Route;
 
 use Doctrine\ORM\EntityManagerInterface;
 
-use App\Form\AccueilType;
-use App\Entity\Accueil;
+use App\Form\TicketType;
+use App\Entity\Ticket;
 
 class AccueilController extends AbstractController
 {
     #[Route('/accueil', name: 'home_accueil')]
     public function index(Request $request, EntityManagerInterface $em): Response
     {
-        $accueil = new Accueil();
-        $ticketForm = $this->createForm(AccueilType::class, $accueil);
+        $accueil = new Ticket();
+        $ticketForm = $this->createForm(TicketType::class, $accueil);
         $ticketForm->handleRequest($request);
 
         if ($ticketForm->isSubmitted() && $ticketForm->isValid()) {

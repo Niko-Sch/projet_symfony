@@ -43,9 +43,9 @@
 {% endif %}
 
 {# Le user se co #}
-{% if app.user and ticketForm is defined %}
+{% if app.user and 'ROLE_USER' in app.user.roles and ticketForm is defined %}
     
-    {% if 'ROLE_ADMIN' in app.user.roles %}
+    {# {% if 'ROLE_ADMIN' in app.user.roles %}
     {% set canEditAll = true %}
     {% set canEditDescription = false %}
     {% set canEditCategory = true %}
@@ -57,25 +57,25 @@
     {% set canEditCategory = false %}
     {% set canEditEmail = false %}
     {% set canEditStatus = true %}
-{% elseif 'ROLE_USER' in app.user.roles %}
+{% elseif 'ROLE_USER' in app.user.roles %} #}
     {% set canEditAll = false %}
     {% set canEditDescription = true %}
     {% set canEditCategory = true %}
     {% set canEditEmail = true %}
     {% set canEditStatus = false %}
-{% else %}
-    {# Par défaut #}
+{# {% else %}
+    {# Par défaut }
     {% set canEditAll = false %}
     {% set canEditDescription = false %}
     {% set canEditCategory = false %}
     {% set canEditEmail = false %}
     {% set canEditStatus = false %}
-{% endif %}
+{% endif %} #}
 
 
     <div class="form-container">
     {# Formulaire ticket #}
-        <h1>Créer un ticket {{ isReadOnly }}</h1>
+        <h1>Créer un ticket {{ app.user.roles[0] }}</h1>
 
         {{ form_start(ticketForm, {'attr': {'class': 'needs-validation'}}) }}
         <div class="row">
