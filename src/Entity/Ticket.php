@@ -18,10 +18,10 @@ class Ticket
     private ?string $tick_auteur = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTime $tick_date_ouv = null;
+    private ?\DateTimeInterface $tick_date_ouv = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable:true)]
-    private ?\DateTime $tick_date_clo = null;
+    private ?\DateTimeInterface $tick_date_clo = null;
 
     #[ORM\Column(length: 255)]
     private ?string $tick_description = null;
@@ -69,7 +69,7 @@ class Ticket
         return $this->tick_date_clo;
     }
 
-    public function setTickDateClo(\DateTimeInterface $tick_date_clo): static
+    public function setTickDateClo(?\DateTimeInterface $tick_date_clo): static
     {
         $this->tick_date_clo = $tick_date_clo;
 

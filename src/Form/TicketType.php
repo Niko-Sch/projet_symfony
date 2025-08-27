@@ -19,16 +19,24 @@ class TicketType extends AbstractType
             ->add('tick_auteur', TextType::class, [
                 'label' => 'Auteur',
                 'required' => true,
+                'attr' => ['readonly' => true],
             ])
+
             ->add('tick_date_ouv', DateType::class, [
-                'label' => 'Date d\'ouverture',
-                'widget' => 'single_text',
-                'data' => new \DateTime(),
+                'label'   => "Date d'ouverture",
+                'widget'  => 'single_text',
+                'html5'   => true,
+                'input'   => 'datetime',
+                'format'  => 'yyyy-MM-dd',
+                'required'=> true,
+                'attr'    => ['readonly' => true],
             ])
+
             ->add('tick_description', TextareaType::class, [
                 'label' => 'Description',
                 'required' => true,
             ])
+
             ->add('tick_categorie', ChoiceType::class, [
                 'label' => 'Catégorie',
                 'choices' => [
@@ -40,24 +48,31 @@ class TicketType extends AbstractType
                 ],
                 'required' => true,
             ])
+
             ->add('tick_status', ChoiceType::class, [
-                'label' => 'Statut',
-                'choices' => [
+                'label'    => 'Statut',
+                'choices'  => [
                     'Nouveau' => 'Nouveau',
-                    'Ouvert' => 'Ouvert',
-                    'Résolu' => 'Résolu',
-                    'Fermé' => 'Fermé',
+                    'Ouvert'  => 'Ouvert',
+                    'Résolu'  => 'Résolu',
+                    'Fermé'   => 'Fermé',
                 ],
-                'required' => true,
+                'mapped'   => false,
+                'disabled' => true,
             ])
+
             ->add('tick_responsable', TextType::class, [
                 'label' => 'Responsable',
                 'required' => false,
             ])
+
             ->add('tick_date_clo', DateType::class, [
                 'label' => 'Date de clôture',
-                'widget' => 'single_text',
-                'required' => false,
+                'widget'  => 'single_text',
+                'html5'   => true,
+                'required'=> false,
+                'mapped'  => false,
+                'disabled'=> true,
             ]);
     }
 

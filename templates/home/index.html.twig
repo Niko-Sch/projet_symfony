@@ -7,9 +7,15 @@
 {# Setting des variables #}
 {% set last_username = last_username|default('') %}
 {% set login_error = login_error|default(null) %}
-{% set display = "mb-3" %}
-{% set isDisabled = "" %}
-{% set isReadOnly = false %}
+
+{% for label, messages in app.flashes %}
+  {% for message in messages %}
+    <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  {% endfor %}
+{% endfor %}
 
 {# Arrive sur la page de co, user non co #}
 {% if not app.user %}
@@ -45,21 +51,13 @@
 {# Le user se co #}
 {% if app.user and 'ROLE_USER' in app.user.roles and ticketForm is defined %}
 
-    {# Variables #}
-    {% set can = {
-        all:   false,
-        desc:  true,
-        cat:   true,
-        status:false
-    } %}
-
     <div class="form-container">
-        <h1>Créer un ticket {{ app.user.roles[0] }}</h1>
+        <h1>Créer un ticket</h1>
 
         {{ form_start(ticketForm, {'attr': {'class': 'needs-validation'}}) }}
 
-        {{ form_row(ticketForm.tick_auteur, {
-            'attr': {'class': 'form-control', 'value': app.user.email, 'readonly': true}
+        {{ form_row(ticketForm.tick_auteur, { 
+            'attr': { class: 'form-control', readonly: true }
         }) }}
 
         {{ form_row(ticketForm.tick_date_ouv, {
@@ -67,28 +65,24 @@
         }) }}
 
         {{ form_row(ticketForm.tick_description, {
-            'attr': {'class': 'form-control', 'readonly': not can.desc},
-            'disabled': not can.desc
+            'attr': {'class': 'form-control'}
         }) }}
 
         {{ form_row(ticketForm.tick_categorie, {
-            'attr': {'class': 'form-control'},
-            'disabled': not can.cat
+            'attr': {'class': 'form-control'}
         }) }}
 
         {{ form_row(ticketForm.tick_status, {
             'attr': {'class': 'form-control'},
-            'disabled': not can.status
+            'readonly': true
         }) }}
 
         {{ form_row(ticketForm.tick_responsable, {
-            'attr': {'class': 'form-control', 'readonly': not can.all},
-            'disabled': not can.all
+            'attr': {'class': 'form-control', 'readonly': true}
         }) }}
 
         {{ form_row(ticketForm.tick_date_clo, {
-            'attr': {'class': 'form-control', 'readonly': not can.all},
-            'disabled': not can.all
+            'attr': {'class': 'form-control', 'readonly': true}
         }) }}
 
         <div class="d-grid">
