@@ -44,132 +44,65 @@
 
 {# Le user se co #}
 {% if app.user and 'ROLE_USER' in app.user.roles and ticketForm is defined %}
-    
-    {# {% if 'ROLE_ADMIN' in app.user.roles %}
-    {% set canEditAll = true %}
-    {% set canEditDescription = false %}
-    {% set canEditCategory = true %}
-    {% set canEditEmail = false %}
-    {% set canEditStatus = true %}
-{% elseif 'ROLE_PERSONNEL' in app.user.roles %}
-    {% set canEditAll = false %}
-    {% set canEditDescription = false %}
-    {% set canEditCategory = false %}
-    {% set canEditEmail = false %}
-    {% set canEditStatus = true %}
-{% elseif 'ROLE_USER' in app.user.roles %} #}
-    {% set canEditAll = false %}
-    {% set canEditDescription = true %}
-    {% set canEditCategory = true %}
-    {% set canEditEmail = true %}
-    {% set canEditStatus = false %}
-{# {% else %}
-    {# Par défaut }
-    {% set canEditAll = false %}
-    {% set canEditDescription = false %}
-    {% set canEditCategory = false %}
-    {% set canEditEmail = false %}
-    {% set canEditStatus = false %}
-{% endif %} #}
 
+    {# Variables #}
+    {% set can = {
+        all:   false,
+        desc:  true,
+        cat:   true,
+        status:false
+    } %}
 
     <div class="form-container">
-    {# Formulaire ticket #}
         <h1>Créer un ticket {{ app.user.roles[0] }}</h1>
 
         {{ form_start(ticketForm, {'attr': {'class': 'needs-validation'}}) }}
-        <div class="row">
-            <div class="mb-3">
-                {{ form_label(ticketForm.tick_auteur, 'Auteur') }}
-                {{ form_widget(ticketForm.tick_auteur, {
-                    'attr': {
-                        'class': 'form-control'
-                    }
-                    |merge(canEditEmail ? {} : {'readonly': true, 'disabled': true})
-                    |merge({'value': app.user.email})
-                }) }}
-                {{ form_errors(ticketForm.tick_auteur) }}
-            </div>
-        </div>
 
-        <div class="mb-3">
-            {{ form_label(ticketForm.tick_date_ouv, 'Date d\'ouverture') }}
-            {{ form_widget(ticketForm.tick_date_ouv, {
-                'attr': {
-                    'class': 'form-control',
-                    'readonly': true
-                },
-                'disabled': true
-            }) }}
-            {{ form_errors(ticketForm.tick_date_ouv) }}
-        </div>
+        {{ form_row(ticketForm.tick_auteur, {
+            'attr': {'class': 'form-control', 'value': app.user.email, 'readonly': true}
+        }) }}
 
-        <div class="mb-3">
-            {{ form_label(ticketForm.tick_description, 'Description') }}
-            {{ form_widget(ticketForm.tick_description, {
-                'attr': {
-                    'class': 'form-control'
-                }
-                |merge(canEditDescription ? {} : {'readonly': true, 'disabled': true})
-            }) }}
-            {{ form_errors(ticketForm.tick_description) }}
-        </div>
+        {{ form_row(ticketForm.tick_date_ouv, {
+            'attr': {'class': 'form-control', 'readonly': true}
+        }) }}
 
-        <div class="mb-3">
-            {{ form_label(ticketForm.tick_categorie, 'Catégorie') }}
-            {{ form_widget(ticketForm.tick_categorie, {
-                'attr': {
-                    'class': 'form-control'
-                }
-                |merge(canEditCategory ? {} : {'readonly': true, 'disabled': true})
-            }) }}
-            {{ form_errors(ticketForm.tick_categorie) }}
-        </div>
+        {{ form_row(ticketForm.tick_description, {
+            'attr': {'class': 'form-control', 'readonly': not can.desc},
+            'disabled': not can.desc
+        }) }}
 
-        <div class="{{ display }}">
-            {{ form_label(ticketForm.tick_status, 'Statut') }}
-            {{ form_widget(ticketForm.tick_status, {
-                'attr': {
-                    'class': 'form-control'
-                }
-                |merge(canEditStatus ? {} : {'readonly': true, 'disabled': true})
-            }) }}
-            {{ form_errors(ticketForm.tick_status) }}
-        </div>
+        {{ form_row(ticketForm.tick_categorie, {
+            'attr': {'class': 'form-control'},
+            'disabled': not can.cat
+        }) }}
 
-        <div class="{{ display }}">
-            {{ form_label(ticketForm.tick_responsable, 'Responsable') }}
-            {{ form_widget(ticketForm.tick_responsable, {
-                'attr': {
-                    'class': 'form-control'
-                }
-                |merge(canEditAll ? {} : {'readonly': true, 'disabled': true})
-            }) }}
-            {{ form_errors(ticketForm.tick_responsable) }}
-        </div>
+        {{ form_row(ticketForm.tick_status, {
+            'attr': {'class': 'form-control'},
+            'disabled': not can.status
+        }) }}
 
-        <div class="{{ display }}">
-            {{ form_label(ticketForm.tick_date_clo, 'Date de clôture') }}
-            {{ form_widget(ticketForm.tick_date_clo, {
-                'attr': {
-                    'class': 'form-control'
-                }
-                |merge(canEditAll ? {} : {'readonly': true, 'disabled': true})
-            }) }}
-            {{ form_errors(ticketForm.tick_date_clo) }}
-        </div>
+        {{ form_row(ticketForm.tick_responsable, {
+            'attr': {'class': 'form-control', 'readonly': not can.all},
+            'disabled': not can.all
+        }) }}
+
+        {{ form_row(ticketForm.tick_date_clo, {
+            'attr': {'class': 'form-control', 'readonly': not can.all},
+            'disabled': not can.all
+        }) }}
 
         <div class="d-grid">
             <button type="submit" class="btn btn-primary btn-block">Envoyer</button>
         </div>
-    </div>
-{{ form_end(ticketForm) }}
 
-<form action="{{ path('app_logout') }}" method="post" class="mb-2">
-    <div class="d-flex justify-content-center">
-    <button type="submit" class="btn btn-danger w-25">Déconnexion</button>
+        {{ form_end(ticketForm) }}
     </div>
-</form>
+
+    <form action="{{ path('app_logout') }}" method="post" class="mb-2">
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-danger w-25">Déconnexion</button>
+        </div>
+    </form>
 {% endif %}
 
 {% endblock %}
