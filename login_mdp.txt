@@ -1,0 +1,14 @@
+Role Admin
+login : admin@email.com
+mdp : @admintest1+
+----------------------------
+Role Client :
+login : clienttest@email.com
+mdp : Clienttest1+
+
+login : test@email.com
+mdp : 123
+----------------------------
+Role Personel :
+login : personneltest@email.com
+mdp : Personneltest1+

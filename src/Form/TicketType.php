@@ -1,7 +1,6 @@
 <?php
 namespace App\Form;
 
-use App\Entity\Accueil;
 use App\Entity\Ticket;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -47,6 +46,7 @@ class TicketType extends AbstractType
                     'Information' => 'Information',
                 ],
                 'required' => true,
+                'data'     => 'Incident',
             ])
 
             ->add('tick_status', ChoiceType::class, [
@@ -57,8 +57,8 @@ class TicketType extends AbstractType
                     'Résolu'  => 'Résolu',
                     'Fermé'   => 'Fermé',
                 ],
-                'mapped'   => false,
                 'disabled' => true,
+                'data'     => 'Nouveau',
             ])
 
             ->add('tick_responsable', TextType::class, [

@@ -1,12 +1,8 @@
 Lancer le server :
 symfony server
 
-Effacrer le cache :
+Effacer le cache :
 php bin/console cache:clear
-
-Créer une entity ou un form : 
-php bin/console make:entity
-php bin/console make:form
 
 Pour hasher un password : 
 php bin/console security:hash-password
@@ -19,6 +15,24 @@ php bin/console make:migration
 puis
 php bin/console doctrine:migrations:migrate
 
+Pour créer un Entity : (equivalent d'un table BDD)
+php bin/console make:entity
+
+Pour créer un Repository: (la ou on place les fonctions d'appel et update etc..BDD, c'est utilisé par les Controller)
+php bin/console make:repository
+
+Pour créer un Controller : (envoie les data au template)
+php bin/console make:controller NomController
+
+Pour crée un Form : 
+php bin/console make:form NomdeEntity
+
+Pour créer une fixture : (installer "composer require orm-fixtures --dev")
+php bin/console make:fixture Nomdela Fixture
+
+Pour envoyer les data de la Fixture en BDD : 
+php bin/console doctrine:fixtures:load --append
+
 Envoyer sur GIT :
 git add .
 git commit - m "message de cmmit"
@@ -27,3 +41,16 @@ git push origin main ou git push origin staging
 Pour pousser staging sur main si OK :
 git push origin staging:main
 
+Pour voir les modif avant add :
+git status
+
+Pour MAJ la branche : 
+git fetch
+git pull
+
+Ordre logique de mise en place :
+1) Entity (et migration DB)
+2) Repository (si besoin de requêtes custom)
+3) Controller (logique et routes)
+4) FormType (si besoin de formulaires)
+5) Twig Template (affichage)
