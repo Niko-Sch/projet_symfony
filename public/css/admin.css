@@ -1,7 +1,6 @@
 body.page-admin {
   min-height: 100vh;
   background: linear-gradient(to bottom, #01b3b9, #005a4a);
-  
 }
 main.page-admin {
   max-width: 1000px;
@@ -40,5 +39,30 @@ main.page-admin {
   background-color: rgba(255,255,255,.15) !important;
   border-color: transparent !important;
   text-decoration: none !important;
+}
+.table-rounded {
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+tr {
+  text-align: center;
+}
+td {
+  text-align: center;
+  vertical-align: middle;
+}
+a.ticket_number {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  color: red;
+  border: 1px solid black;
+  border-radius: 50%;
+  text-decoration: none;
+  margin: auto;
 }
 

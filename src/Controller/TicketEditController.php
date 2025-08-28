@@ -20,10 +20,10 @@ class TicketEditController extends AbstractController
             'method' => 'POST',
         ]);
 
-        // IMPORTANT : on rend un fragment SANS layout
         return $this->render('ticket/_edit_frame.html.twig', [
             'ticket' => $ticket,
             'form'   => $form->createView(),
+            'user' => $this->getUser(),
         ]);
     }
 
@@ -35,11 +35,10 @@ class TicketEditController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
-            // On peut renvoyer un petit message dans le même frame
             return $this->render('ticket/_saved.html.twig', ['ticket' => $ticket]);
         }
 
-        // 422 pour ré-afficher le formulaire avec erreurs dans le frame
+        // 422 erreur
         return $this->render('ticket/_edit_frame.html.twig', [
             'ticket' => $ticket,
             'form'   => $form->createView(),

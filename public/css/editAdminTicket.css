@@ -1,7 +1,6 @@
 body {
   min-height: 100vh;
   background: linear-gradient(to bottom, #01b3b9, #005a4a);
-  
 }
 .form-container {
     max-width: 600px;
@@ -22,5 +21,9 @@ body {
     font-size: 2em;
     letter-spacing: 5px;
     margin-bottom: 30px;
+}
+.select-readonly {
+  pointer-events: none;
+  background-color: #e9ecef;
 }
 

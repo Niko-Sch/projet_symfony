@@ -1,8 +1,16 @@
 <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
 
+{% set css = is_granted('ROLE_PERSONNEL') %}
+{% set css_path = css ? 'editPersonnelTicket.css' : 'editAdminTicket.css' %}
+
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/editTicket.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/' ~ css_path) }}">
 {% endblock %}
+
+{% set readonly = '' %}
+{% set path = '' %}
+
+{% set isReadOnly = is_granted('ROLE_PERSONNEL') %}
 
 {{ form_start(form, { attr: { class: 'needs-validation', novalidate: true } }) }}
   <div class="form-container">
@@ -11,19 +19,19 @@
         {{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
 
         {{ form_row(form.tick_auteur, { 
-            'attr': { class: 'form-control', readonly: true }
+            'attr': { class: 'form-control select-readonly' }
         }) }}
 
         {{ form_row(form.tick_date_ouv, {
-            'attr': {'class': 'form-control', 'readonly': true}
+            'attr': {'class': 'form-control select-readonly'}
         }) }}
 
         {{ form_row(form.tick_description, {
-            'attr': {'class': 'form-control'}
+            'attr': {'class': 'form-control'~ (isReadOnly ? ' select-readonly' : '') }
         }) }}
 
         {{ form_row(form.tick_categorie, {
-            'attr': {'class': 'form-control'}
+            'attr': {'class': 'form-control' ~ (isReadOnly ? ' select-readonly' : '') }
         }) }}
 
         {{ form_row(form.tick_status, {
@@ -31,18 +39,16 @@
         }) }}
 
         {{ form_row(form.tick_responsable, {
-            'attr': {'class': 'form-control'}
+            'attr': {'class': 'form-control' ~ (isReadOnly ? ' select-readonly' : '') }
         }) }}
 
         {{ form_row(form.tick_date_clo, {
-            'attr': {'class': 'form-control'}
+            'attr': {'class': 'form-control' ~ (isReadOnly ? ' select-readonly' : '') }
         }) }}
 
         <div class="d-flex gap-2 justify-content-center">
         <button type="submit" class="btn btn-primary">Envoyer</button>
         <a href="{{ path('app_admin') }}" class="btn btn-danger" data-turbo-frame="_top">Annuler</a>
         </div>
-
-
 
 {{ form_end(form) }}

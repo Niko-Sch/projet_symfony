@@ -24,5 +24,5 @@ security:
 
     access_control:
         - { path: ^/accueil, roles: PUBLIC_ACCESS } 
-        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/admin, roles: [ROLE_ADMIN,ROLE_PERSONNEL]  }
         - { path: ^/personnel, roles: ROLE_PERSONNEL }

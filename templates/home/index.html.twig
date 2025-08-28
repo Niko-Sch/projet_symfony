@@ -49,10 +49,8 @@
 {% endif %}
 
 {# Le user se co #}
-{% if is_granted('ROLE_ADMIN') %}
+{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PERSONNEL') %}
     <meta http-equiv="refresh" content="0; url={{ path('app_admin') }}">
-{% elseif is_granted('ROLE_PERSONNEL') %}
-    <meta http-equiv="refresh" content="0; url={{ path('app_personnel') }}">
 
 {% elseif app.user and 'ROLE_USER' in app.user.roles and ticketForm is defined %}
     <div class="form-container">

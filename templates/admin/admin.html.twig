@@ -1,14 +1,20 @@
 {% extends 'base.html.twig' %}
 
+{% set css = is_granted('ROLE_PERSONNEL') %}
+{% set css_path = css ? 'personnel.css' : 'admin.css' %}
+{% set entete = is_granted('ROLE_PERSONNEL') %}
+{% set titre = entete ? 'Menu Personnel d\'agence' : 'Menu Administrateur' %}
+
 {% block stylesheets %}
     {{ parent() }} 
-    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/' ~ css_path) }}">
 {% endblock %}
+
 {% block body_class %}page-admin{% endblock %}
 
 {% block javascripts %}{% endblock %}
 
-{% block title %}Menu Administrateur{% endblock %}
+{% block title %}{{ titre }}{% endblock %}
 
 {% block body %}
 <link rel="stylesheet" href="{{ asset('css/bootstrap-table.min.css') }}">
@@ -18,11 +24,11 @@
     
     <form action="{{ path('app_logout') }}" method="post" class="mb-2">
         <div class="d-flex justify-content-center">
-            <button type="submit" class="btn btn-danger w-25">Déconnexion</button>
+            <button type="submit" class="btn btn-danger w-25 mb-3">Déconnexion</button>
         </div>
     </form>
 
-    <table id="table" class="table table-bordered" data-toggle="table" data-filter-control="true"
+    <table id="table" class="table table-bordered table-rounded" data-toggle="table" data-filter-control="true"
     data-single-select="true"
   data-click-to-select="true">
     <thead>
@@ -39,7 +45,7 @@
             {% for ticket in tickets %}
                 <tr>
                 <td>
-                <a href="{{ path('ticket_edit', { id: ticket.id }) }}" data-turbo-frame="ticket-panel">
+                <a href="{{ path('ticket_edit', { id: ticket.id }) }}" data-turbo-frame="ticket-panel" class="ticket_number">
                     {{ ticket.id }}
                 </a>
                 </td>
@@ -58,8 +64,6 @@
 
 <turbo-frame id="ticket-panel"></turbo-frame>
 
-
-<script src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
 <script src="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table.min.js"></script>
 <script src="https://unpkg.com/bootstrap-table@1.22.1/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
 
