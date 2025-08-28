@@ -1,5 +1,7 @@
+{# intégration de Bootstrap #}
 <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
 
+{# variables qui permettent d'utiliser le même template mais avec des droits diff selon le rôle #}
 {% set css = is_granted('ROLE_PERSONNEL') %}
 {% set css_path = css ? 'editPersonnelTicket.css' : 'editAdminTicket.css' %}
 

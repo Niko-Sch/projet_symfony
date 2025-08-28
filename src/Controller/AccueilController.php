@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AccueilController extends AbstractController
 {
     #[Route('/accueil', name: 'home_accueil', methods: ['GET','POST'])]
-public function index(Request $request, EntityManagerInterface $em): Response
+public function index(Request $request, EntityManagerInterface $emi): Response
 {
     $ticket = new Ticket();
 
@@ -25,8 +25,9 @@ public function index(Request $request, EntityManagerInterface $em): Response
 
     if ($form->isSubmitted() && $form->isValid()) {
         $ticket->setTickAuteur($this->getUser()?->getUserIdentifier() ?? '');
-        $em->persist($ticket);
-        $em->flush();
+        $emi->persist($ticket);
+        $emi->flush();
+        // addFlash permet d'afficher un message
         $this->addFlash('success',"Ticket créé avec succès !\nIl sera traité dés que possible.\nVous pouvez a présent vous déconnecter ou créer un autre ticket.");
         return $this->redirectToRoute('home_accueil', [], Response::HTTP_SEE_OTHER); // 303
     }

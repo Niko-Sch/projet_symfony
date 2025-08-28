@@ -15,7 +15,7 @@ class TicketRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Ticket::class);
     }
-
+    // Fonction qui permet de récuperer la liste de tous les tikets existants
     public function getAllTickets(): array
     {
         return $this->createQueryBuilder('ticket')

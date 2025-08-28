@@ -18,7 +18,7 @@ class Ticket
     private ?string $tick_auteur = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $tick_date_ouv = null;
+    private ?\DateTimeInterface $tick_date_ouv = null; //Pour les dates, tjrs preferer DateTimeInterface plutôt que Date !
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable:true)]
     private ?\DateTimeInterface $tick_date_clo = null;

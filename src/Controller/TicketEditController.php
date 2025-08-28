@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class TicketEditController extends AbstractController
-{
+{ //1ere route qui amène à l'edition des ticket selon le role de l'user
     #[Route('/tickets/{id<\d+>}/edit', name: 'ticket_edit', methods: ['GET'])]
     public function edit(Ticket $ticket): Response
     {
@@ -27,6 +27,7 @@ class TicketEditController extends AbstractController
         ]);
     }
 
+    //2eme route qui envoie l'update du ticket aprés modifications
     #[Route('/tickets/{id<\d+>}', name: 'ticket_update', methods: ['POST'])]
     public function update(Request $request, Ticket $ticket, EntityManagerInterface $em): Response
     {

@@ -11,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class TicketType extends AbstractType
-{
+{ //Création des champs du formulaire Ticket
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -46,7 +46,7 @@ class TicketType extends AbstractType
                     'Information' => 'Information',
                 ],
                 'required' => true,
-                'data'     => 'Incident',
+                'data'     => 'Incident', //permet Incident par défaut
             ])
 
             ->add('tick_status', ChoiceType::class, [
@@ -71,7 +71,7 @@ class TicketType extends AbstractType
                 'widget'  => 'single_text',
                 'html5'   => true,
                 'required'=> false,
-                'mapped'  => false,
+                'mapped'  => false, //Permet de ne pas envoyer la donnée
                 'disabled'=> true,
             ]);
     }

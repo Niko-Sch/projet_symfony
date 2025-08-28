@@ -7,7 +7,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
 class FakesTickets extends Fixture
-{
+{ // Création de 9 tickets avec Catégorie, status et dates différentes.
     public function load(ObjectManager $manager): void
     {
         for ($i = 1; $i <= 3; $i++) {
